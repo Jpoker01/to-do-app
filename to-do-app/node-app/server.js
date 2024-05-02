@@ -6,7 +6,7 @@ const tasksRouter = require('./src/routes/api/tasks');
 const usersRouter = require('./src/routes/api/users');
 
 const myLogger = require('./src/routes/logger');
-const PORT = process.env.PORT || 3300;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 

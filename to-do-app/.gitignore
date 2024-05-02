@@ -1,3 +1,4 @@
-node-app/node_modules
+/inspiration
+/lectures
 
-node-app-frontend/node_modules
+/node-app/node_modules
