@@ -13,7 +13,7 @@ import userWatcher from './redux/user.watcher.saga';
 import { createStore, applyMiddleware } from 'redux';
 import { combineReducers } from 'redux';
 import taskList from './redux/task.reducer';
-import userReducer from './redux/user.reducer';
+import user from './redux/user.reducer';
 
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const store = createStore(
   // add each of the reducers to the store
   combineReducers({
     taskList,
-    userReducer
+    user
   }),
   // adds listed middleware to the store
   applyMiddleware(...middlewareList),

@@ -9,6 +9,7 @@ function Home() {
         <section>
           <h2>Add task</h2>
           <TaskForm />
+
         </section>
         <section>
           <h2>Tasks overview</h2>

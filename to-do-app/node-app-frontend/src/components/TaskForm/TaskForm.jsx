@@ -28,7 +28,7 @@ function TaskForm() {
   // Empty tasks
   const defaultTask = { 
       title: '', 
-      time_due: '',
+      time_due: new Date().toISOString(),
   }
 
   const [task, setTask] = useState(defaultTask);

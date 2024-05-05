@@ -9,41 +9,53 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-//import { Navigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from "react-router-dom";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
+
+
+function loginFailureAlert(){
+  return(<Stack sx={{ width: '100%' }} spacing={2}>
+  <Alert variant="filled" severity="error">
+    This is a filled error Alert.
+  </Alert>
+  </Stack>)
+}
 
 function Login(){
-    const [user, setUser] = useState({
+    const defaultUser = useState({
         username: '',
         password: '',
         salt: '',
     });
+
+    const userData = useSelector(store => store.user); // Assuming 'user' is the key where user data is stored in your Redux store
     
-    const handleUsernameChange = (event) => {
-        setUser({
-            ...user,
-            username: event.target.value,
-        });
-    };
-    
-    const handlePasswordChange = (event) => {
-        setUser({
-            ...user,
-            password: event.target.value,
-        });
-    };
-    
+    const [user, setUser] = useState(defaultUser);
+
+    var loginTried = false;
+
     const dispatch = useDispatch();
     const defaultTheme = createTheme();
-    
+
     const handleLogin = (event) => {
         event.preventDefault();
-        dispatch({ type: 'LOGIN', payload: user });
+        try{
+          dispatch({ type: 'LOGIN', payload: user });
+          throw new Error("Login failed: Incorrect username or password");
+          
+        } catch(error){
+          loginFailureAlert();
+        }
+        
     }
-    
+
       return (
         <ThemeProvider theme={defaultTheme}>
+                      <loginFailureAlert/>
+
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -60,16 +72,16 @@ function Login(){
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-              <Box component="form" noValidate sx={{ mt: 1 }}>
+              <Box component="form"  noValidate sx={{ mt: 1 }}>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
                   id="username"
                   label="Username:"
-                  name="email"
-                  autoComplete="email"
-                  onChange={handleUsernameChange}
+                  name="username"
+                  onChange={ (event) => setUser({ ...user, username: event.target.value }) } 
+                  autoComplete="username"
                   autoFocus
                 />
                 <TextField
@@ -80,22 +92,28 @@ function Login(){
                   label="Password:"
                   type="password"
                   id="password"
-                  onChange={handlePasswordChange}
+                  onChange={ (event) => setUser({ ...user, password: event.target.value }) } 
                   autoComplete="current-password"
                 />
                 <Button
                   type="submit"
-                  to="/Home"
-                  onSubmit={handleLogin}
+                  onClick={handleLogin}
                   fullWidth
-                  variant="contained"
+                  variant="outlined"
                   sx={{ mt: 3, mb: 2 }}
-                >
+                  
+                >                  
                   Sign In
-                </Button>
+                  
+                  {userData.message === 'Login success' && <Navigate to="/Home"/> }
+                  </Button>
+                  {////TODO
+                  /*
                     <Link>
                       {"Don't have an account? Sign Up"}
                     </Link>
+                  */}
+                  
               </Box>
             </Box>
           </Container>

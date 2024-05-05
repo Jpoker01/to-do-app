@@ -1,6 +1,6 @@
 const userReducer = (state = [], action) => {
     switch (action.type) {
-      case 'SET_USER':
+      case 'LOGIN_SUCCESS':
         return action.payload;
       default:
         return state;
