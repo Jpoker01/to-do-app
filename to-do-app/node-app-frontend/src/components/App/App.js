@@ -1,8 +1,11 @@
 import './App.css';
 import Login from '../Login/Login';
 import Home from '../Home/Home';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+import PrivateRoute from './PrivateRoute';
 
+
+const isAuthenticated = localStorage.isAuthenticated;
 
 function App() {
 
@@ -14,7 +17,8 @@ function App() {
       <main>
       <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<PrivateRoute Component={Home} />} />
+
         </Routes>
       </main>
       </div>

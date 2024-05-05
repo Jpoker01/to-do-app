@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import { Snackbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -54,8 +55,6 @@ function Login(){
 
       return (
         <ThemeProvider theme={defaultTheme}>
-                      <loginFailureAlert/>
-
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -105,7 +104,9 @@ function Login(){
                 >                  
                   Sign In
                   
-                  {userData.message === 'Login success' && <Navigate to="/Home"/> }
+                  {userData.message === 'Login success' && <Navigate to="/Home"/> }        
+                  {userData.message === 'Login success' && (localStorage.isAuthenticated = true)}
+          
                   </Button>
                   {////TODO
                   /*
