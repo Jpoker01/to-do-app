@@ -1,6 +1,6 @@
 const taskListReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_TASK_LIST':
+    case "SET_TASK_LIST":
       return action.payload;
     default:
       return state;
@@ -8,4 +8,3 @@ const taskListReducer = (state = [], action) => {
 };
 
 export default taskListReducer;
-
